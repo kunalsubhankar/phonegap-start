@@ -27,6 +27,7 @@ var app = {
     // 'load', 'deviceready', 'offline', and 'online'.
     bindEvents: function() {
         document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.getElementById('btnCalculate').addEventListener('click', this.onCalculate, false);
     },
     // deviceready Event Handler
     //
@@ -45,5 +46,30 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+    },
+
+    onCalculate: function() {
+        var x = document.getElementById('txt1').value;
+        var y = document.getElementById('txt2').value;
+        var o = parseInt(document.getElementById('op').value);
+        if(x.length == 0 || y.length == 0)
+            document.getElementById('res').innerHTML = 'ERROR: Please fill all the fields.';
+        else {
+            var a = parseInt(x);
+            var b = parseInt(y);
+            if(o == 0)
+                document.getElementById('res').innerHTML = a + ' + ' + b + ' = ' + (a+b);
+            else if(o == 1)
+                document.getElementById('res').innerHTML = a + ' - ' + b + ' = ' + (a-b);
+            else if(o == 2)
+                document.getElementById('res').innerHTML = a + ' X ' + b + ' = ' + (a*b);
+            else if(o == 3)
+                if(b == 0)
+                    document.getElementById('res').innerHTML = 'ERROR: Divisor cannot be 0.';
+                else
+                    document.getElementById('res').innerHTML = a + ' / ' + b + ' = ' + (a/b);
+        }
     }
 };
+
+app.initialize();
